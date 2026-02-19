@@ -1,0 +1,33 @@
+# Instructions for Adding Your Photos
+
+Since the image generation service is temporarily unavailable, please add your own photos manually:
+
+## Steps:
+
+1. **Prepare 6 photos** of you and your boyfriend
+   - Choose your favorite memories together
+   - Make sure they're high quality (at least 1000x1000 pixels recommended)
+
+2. **Rename your photos** to:
+   - photo1.jpg
+   - photo2.jpg
+   - photo3.jpg
+   - photo4.jpg
+   - photo5.jpg
+   - photo6.jpg
+
+3. **Place them in the `images` folder** in this directory:
+   - c:\Users\gaila\OneDrive\Desktop\milsy\images\
+
+4. **Supported formats:** .jpg, .jpeg, .png, .webp
+
+## Photo Suggestions:
+
+- A romantic sunset or beach photo
+- A fun candid moment together
+- A special date or celebration
+- An adventure or trip you took
+- A cozy moment at home
+- Any photo that makes you smile!
+
+Once you add your photos, the website will display them in the gallery section with beautiful hover effects and animations.
