@@ -1,32 +1,55 @@
-// ===== FLOATING HEARTS ANIMATION =====
+// ===== PINTEREST-STYLE FLOATING HEARTS =====
 function createFloatingHearts() {
     const heartsContainer = document.getElementById('heartsContainer');
-    const heartSymbols = ['❤️', '💕', '💖', '💗', '💝', '💞'];
+    const heartColors = [
+        'rgba(255, 107, 157, 0.6)',
+        'rgba(255, 143, 177, 0.5)',
+        'rgba(244, 114, 182, 0.5)',
+        'rgba(236, 72, 153, 0.4)',
+        'rgba(219, 39, 119, 0.35)',
+        'rgba(255, 182, 193, 0.6)',
+        'rgba(255, 105, 135, 0.45)',
+        'rgba(252, 165, 165, 0.5)',
+        'rgba(255, 215, 0, 0.25)',
+        'rgba(196, 69, 105, 0.4)',
+    ];
 
     function addHeart() {
         const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
-        heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.classList.add('floating-heart');
+
+        const size = Math.random() * 18 + 8;
+        const color = heartColors[Math.floor(Math.random() * heartColors.length)];
+        const duration = Math.random() * 12 + 8;
+        const drift = (Math.random() - 0.5) * 200;
+        const startDelay = Math.random() * 2;
+        const startX = Math.random() * 100;
+        const spin = (Math.random() - 0.5) * 120;
+
+        heart.style.cssText = `
+            left: ${startX}%;
+            --heart-color: ${color};
+            --heart-size: ${size}px;
+            --drift: ${drift}px;
+            --spin: ${spin}deg;
+            animation: heartFloat ${duration}s ${startDelay}s ease-in forwards;
+            filter: blur(${Math.random() < 0.3 ? 1 : 0}px);
+        `;
 
         heartsContainer.appendChild(heart);
 
-        // Remove heart after animation completes
         setTimeout(() => {
             heart.remove();
-        }, 20000);
+        }, (duration + startDelay) * 1000);
     }
 
-    // Create initial hearts
-    for (let i = 0; i < 15; i++) {
-        setTimeout(addHeart, i * 500);
+    // Create initial burst
+    for (let i = 0; i < 20; i++) {
+        setTimeout(addHeart, i * 300);
     }
 
     // Continuously add hearts
-    setInterval(addHeart, 2000);
+    setInterval(addHeart, 800);
 }
 
 // ===== SCROLL ANIMATIONS =====
