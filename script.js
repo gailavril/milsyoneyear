@@ -228,6 +228,10 @@ function initSwipeCards() {
     const nopeBtn = document.getElementById('nopeBtn');
     const likeIndicator = document.getElementById('likeIndicator');
     const nopeIndicator = document.getElementById('nopeIndicator');
+    const matchOverlay = document.getElementById('matchOverlay');
+    const matchCloseBtn = document.getElementById('matchCloseBtn');
+    const wrongOverlay = document.getElementById('wrongOverlay');
+    const wrongCloseBtn = document.getElementById('wrongCloseBtn');
 
     if (!swipeCards) return;
 
@@ -239,6 +243,56 @@ function initSwipeCards() {
     let moveX = 0;
     let moveY = 0;
     let isDragging = false;
+
+    // Close match overlay
+    if (matchCloseBtn) {
+        matchCloseBtn.addEventListener('click', () => {
+            matchOverlay.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        });
+    }
+
+    // Close match overlay on background click
+    if (matchOverlay) {
+        matchOverlay.addEventListener('click', (e) => {
+            if (e.target === matchOverlay) {
+                matchOverlay.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+
+    // Close wrong overlay
+    if (wrongCloseBtn) {
+        wrongCloseBtn.addEventListener('click', () => {
+            wrongOverlay.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        });
+    }
+
+    // Close wrong overlay on background click
+    if (wrongOverlay) {
+        wrongOverlay.addEventListener('click', (e) => {
+            if (e.target === wrongOverlay) {
+                wrongOverlay.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+
+    function showMatchOverlay() {
+        if (matchOverlay) {
+            matchOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function showWrongOverlay() {
+        if (wrongOverlay) {
+            wrongOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+    }
 
     function initCard(card) {
         if (!card) return;
@@ -309,17 +363,16 @@ function initSwipeCards() {
         likeIndicator.classList.remove('show');
         setTimeout(() => {
             currentCard.remove();
+            showMatchOverlay();
             nextCard();
         }, 500);
     }
 
     function swipeLeft() {
-        currentCard.classList.add('swipe-left');
+        // Don't remove the card — show wrong answer and snap back!
         nopeIndicator.classList.remove('show');
-        setTimeout(() => {
-            currentCard.remove();
-            nextCard();
-        }, 500);
+        showWrongOverlay();
+        resetCard();
     }
 
     function resetCard() {
@@ -334,8 +387,11 @@ function initSwipeCards() {
         if (cards.length > 0) {
             initCard(cards[0]);
         } else {
-            // All cards swiped
-            swipeCards.innerHTML = '<div style="text-align: center; padding: 50px; color: #666;"><h3>All done! 💕</h3><p>You\'ve seen all our memories!</p></div>';
+            // All cards swiped — show final message
+            swipeCards.innerHTML = '<div class="swipe-all-done"><h3>All done! 💕</h3><p>You\'ve seen all of Gail! Lucky you 😏</p></div>';
+            // Hide buttons
+            const btns = document.querySelector('.swipe-buttons');
+            if (btns) btns.style.display = 'none';
         }
     }
 
